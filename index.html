@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - ERP System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #dbeafe;
+            --secondary: #0891b2;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-xl);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-header .icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--bg-main);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-main);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--primary);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border);
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .info-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .avatar-upload {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--bg-main);
+            border: 4px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 4rem;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-preview:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-info {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .permission-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .permission-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-main);
+            border-radius: 0.5rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .permission-item:hover {
+            border-color: var(--primary);
+        }
+
+        .permission-info {
+            flex: 1;
+        }
+
+        .permission-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .permission-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            background: var(--bg-main);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .stat-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: var(--bg-main);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .session-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .session-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-main);
+            border-radius: 0.5rem;
+            border: 2px solid var(--border);
+        }
+
+        .session-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .session-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="breadcrumb">
+                <span>Settings</span>
+                <span>›</span>
+                <span>User Profile</span>
+            </div>
+            <div class="header-content">
+                <div class="profile-avatar">👤</div>
+                <div>
+                    <h1>User Profile</h1>
+                    <p>Manage your personal information, security, and preferences</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Personal Information Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">👤</span>
+                            Personal Information
+                        </h2>
+                    </div>
+
+                    <div class="avatar-upload">
+                        <div class="avatar-preview">👤</div>
+                        <button class="btn btn-secondary">📷 Change Photo</button>
+                        <button class="btn btn-danger" style="margin-left: 0.5rem;">🗑️ Remove</button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" placeholder="First name" value="John">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" placeholder="Last name" value="Smith">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Username *</label>
+                            <input type="text" placeholder="username" value="john.smith">
+                        </div>
+                        <div class="form-group">
+                            <label>Employee ID</label>
+                            <input type="text" placeholder="EMP-001" value="EMP-042" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" value="1990-05-15">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <input type="text" placeholder="Your job title" value="Senior System Administrator">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select>
+                                <option selected>IT Department</option>
+                                <option>Human Resources</option>
+                                <option>Finance</option>
+                                <option>Sales</option>
+                                <option>Marketing</option>
+                                <option>Operations</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Manager</label>
+                            <select>
+                                <option selected>Sarah Johnson</option>
+                                <option>Michael Brown</option>
+                                <option>Emily Davis</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bio / About Me</label>
+                        <textarea rows="4" placeholder="Tell us about yourself">Experienced IT professional with 10+ years in system administration and network management. Passionate about technology and innovation.</textarea>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary">💾 Save Changes</button>
+                        <button class="btn btn-secondary">↺ Reset</button>
+                    </div>
+                </div>
+
+                <!-- Contact Information Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">📞</span>
+                            Contact Information
+                        </h2>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Work Email *</label>
+                            <input type="email" placeholder="work@company.com" value="john.smith@techsolutions.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Personal Email</label>
+                            <input type="email" placeholder="personal@email.com" value="john.personal@gmail.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Work Phone *</label>
+                            <input type="tel" placeholder="+1 (555) 123-4567" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Phone</label>
+                            <input type="tel" placeholder="+1 (555) 987-6543" value="+1 (555) 987-6543">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" placeholder="Street address" value="456 Oak Avenue">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" placeholder="City" value="New York">
+                        </div>
+                        <div class="form-group">
+                            <label>State/Province</label>
+                            <input type="text" placeholder="State" value="NY">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ZIP/Postal Code</label>
+                            <input type="text" placeholder="ZIP code" value="10002">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select>
+                                <option selected>United States</option>
+                                <option>United Kingdom</option>
+                                <option>Canada</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary">✓ Update Contact Info</button>
+                    </div>
+                </div>
+
+                <!-- Security Settings Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">🔒</span>
+                            Security Settings
+                        </h2>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔐 Password Requirements</h4>
+                        <p>Password must be at least 8 characters long, include uppercase, lowercase, numbers, and special characters.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="password" placeholder="Enter current password">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" placeholder="Confirm new password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Two-Factor Authentication (2FA)</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Add an extra layer of security to your account</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Email Notifications for Login</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>SMS Alerts for Suspicious Activity</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary">🔒 Change Password</button>
+                        <button class="btn btn-secondary">⚙️ Configure 2FA</button>
+                    </div>
+                </div>
+
+                <!-- Permissions & Access Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">🔑</span>
+                            Permissions & Access
+                        </h2>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>ℹ️ Your Access Level</h4>
+                        <p>You have Administrator privileges. Contact your system admin to modify permissions.</p>
+                    </div>
+
+                    <div class="permission-list">
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <h4>System Administration</h4>
+                                <p>Full access to system settings</p>
+                            </div>
+                            <span class="badge badge-success">✓ Granted</span>
+                        </div>
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <h4>User Management</h4>
+                                <p>Create, edit, and delete users</p>
+                            </div>
+                            <span class="badge badge-success">✓ Granted</span>
+                        </div>
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <h4>Financial Reports</h4>
+                                <p>View and export financial data</p>
+                            </div>
+                            <span class="badge badge-success">✓ Granted</span>
+                        </div>
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <h4>Data Export</h4>
+                                <p>Export system data</p>
+                            </div>
+                            <span class="badge badge-warning">⏳ Limited</span>
+                        </div>
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <h4>Audit Logs</h4>
+                                <p>Access system audit trails</p>
+                            </div>
+                            <span class="badge badge-danger">✗ Denied</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary">📧 Request Permission Change</button>
+                    </div>
+                </div>
+
+                <!-- Preferences Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">⚙️</span>
+                            Preferences
+                        </h2>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Language</label>
+                            <select>
+                                <option selected>English</option>
+                                <option>Arabic</option>
+                                <option>Kurdish</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Time Zone</label>
+                            <select>
+                                <option selected>Eastern Time (ET)</option>
+                                <option>Pacific Time (PT)</option>
+                                <option>Central Time (CT)</option>
+                                <option>Mountain Time (MT)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date Format</label>
+                            <select>
+                                <option>MM/DD/YYYY</option>
+                                <option selected>DD/MM/YYYY</option>
+                                <option>YYYY-MM-DD</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Time Format</label>
+                            <select>
+                                <option>12-hour (AM/PM)</option>
+                                <option selected>24-hour</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Email Notifications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Desktop Notifications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Weekly Summary Reports</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary">✓ Save Preferences</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Account Status Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">✓</span>
+                            Account Status
+                        </h2>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Member Since</div>
+                            <div class="stat-value" style="font-size: 1.1rem;">Jan 2020</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Last Login</div>
+                            <div class="stat-value" style="font-size: 1.1rem;">Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Total Logins</div>
+                            <div class="stat-value">1,847</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Active Sessions</div>
+                            <div class="stat-value">2</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>Account Status</span>
+                                <span class="badge badge-success">Active</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>Email Verified</span>
+                                <span class="badge badge-success">✓ Yes</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>2FA Enabled</span>
+                                <span class="badge badge-success">✓ Yes</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Sessions Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">💻</span>
+                            Active Sessions
+                        </h2>
+                    </div>
+
+                    <div class="session-list">
+                        <div class="session-item">
+                            <div class="session-info">
+                                <h4>💻 Windows - Chrome</h4>
+                                <p>New York, USA</p>
+                                <p style="font-size: 0.75rem; color: var(--success);">● Active now</p>
+                            </div>
+                            <span class="badge badge-info">Current</span>
+                        </div>
+                        <div class="session-item">
+                            <div class="session-info">
+                                <h4>📱 iPhone - Safari</h4>
+                                <p>New York, USA</p>
+                                <p style="font-size: 0.75rem; color: var(--text-secondary);">2 hours ago</p>
+                            </div>
+                            <button class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.85rem;">End</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-danger btn-block" style="margin-top: 1rem;">🚫 End All Other Sessions</button>
+                </div>
+
+                <!-- Recent Activity Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <span class="icon">🕐</span>
+                            Recent Activity
+                        </h2>
+                    </div>
+
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon">🔒</div>
+                            <div class="activity-content">
+                                <h4>Password Changed</h4>
+                                <p>Security update</p>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">✏️</div>
+                            <div class="activity-content">
+                                <h4>Profile Updated</h4>
+                                <p>Contact information modified</p>
+                                <div class="activity-time">1 day ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">🔐</div>
+                            <div class="activity-content">
+                                <h4>2FA Enabled</h4>
+                                <p>Two-factor authentication activated</p>
+                                <div class="activity-time">3 days ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">📧</div>
+                            <div class="activity-content">
+                                <h4>Email Verified</h4>
+                                <p>Work email confirmed</p>
+                                <div class="activity-time">1 week ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Save button
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if(this.textContent.includes('Save') || this.textContent.includes('Update') || this.textContent.includes('Change')) {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '✓ Saved Successfully';
+                    this.style.background = 'var(--success)';
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.style.background = '';
+                    }, 2000);
+                }
+            });
+        });
+
+        // Photo upload
+        document.querySelector('.avatar-upload .btn-secondary').addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    alert(`Photo selected: ${file.name}`);
+                }
+            };
+            input.click();
+        });
+    </script>
+</body>
+</html>
